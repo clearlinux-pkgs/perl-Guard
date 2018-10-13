@@ -4,16 +4,16 @@
 #
 Name     : perl-Guard
 Version  : 1.023
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libg/libguard-perl/libguard-perl_1.023-1.debian.tar.xz
 Summary  : unknown
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Guard-lib
-Requires: perl-Guard-license
-Requires: perl-Guard-man
+Requires: perl-Guard-lib = %{version}-%{release}
+Requires: perl-Guard-license = %{version}-%{release}
+BuildRequires : buildreq-cpan
 
 %description
 NAME
@@ -30,10 +30,20 @@ chdir "/etc";
 code_that_might_die_or_does_other_fun_stuff;
 }
 
+%package dev
+Summary: dev components for the perl-Guard package.
+Group: Development
+Requires: perl-Guard-lib = %{version}-%{release}
+Provides: perl-Guard-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-Guard package.
+
+
 %package lib
 Summary: lib components for the perl-Guard package.
 Group: Libraries
-Requires: perl-Guard-license
+Requires: perl-Guard-license = %{version}-%{release}
 
 %description lib
 lib components for the perl-Guard package.
@@ -47,19 +57,11 @@ Group: Default
 license components for the perl-Guard package.
 
 
-%package man
-Summary: man components for the perl-Guard package.
-Group: Default
-
-%description man
-man components for the perl-Guard package.
-
-
 %prep
-tar -xf %{SOURCE1}
-cd ..
 %setup -q -n Guard-1.023
-mkdir -p %{_topdir}/BUILD/Guard-1.023/deblicense/
+cd ..
+%setup -q -T -D -n Guard-1.023 -b 1
+mkdir -p deblicense/
 mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Guard-1.023/deblicense/
 
 %build
@@ -84,12 +86,12 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/perl-Guard
-cp COPYING %{buildroot}/usr/share/doc/perl-Guard/COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Guard
+cp COPYING %{buildroot}/usr/share/package-licenses/perl-Guard/COPYING
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -98,16 +100,16 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Guard.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Guard.pm
+
+%files dev
+%defattr(-,root,root,-)
+/usr/share/man/man3/Guard.3
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/Guard/Guard.so
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/Guard/Guard.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/perl-Guard/COPYING
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man3/Guard.3
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Guard/COPYING

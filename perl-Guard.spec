@@ -4,11 +4,11 @@
 #
 Name     : perl-Guard
 Version  : 1.023
-Release  : 9
+Release  : 10
 URL      : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libg/libguard-perl/libguard-perl_1.023-1.debian.tar.xz
-Summary  : unknown
+Summary  : safe cleanup blocks
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
 Requires: perl-Guard-lib = %{version}-%{release}
@@ -35,6 +35,7 @@ Summary: dev components for the perl-Guard package.
 Group: Development
 Requires: perl-Guard-lib = %{version}-%{release}
 Provides: perl-Guard-devel = %{version}-%{release}
+Requires: perl-Guard = %{version}-%{release}
 
 %description dev
 dev components for the perl-Guard package.
@@ -62,7 +63,7 @@ license components for the perl-Guard package.
 cd ..
 %setup -q -T -D -n Guard-1.023 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Guard-1.023/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Guard-1.023/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/

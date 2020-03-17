@@ -4,7 +4,7 @@
 #
 Name     : perl-Guard
 Version  : 1.023
-Release  : 13
+Release  : 14
 URL      : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libg/libguard-perl/libguard-perl_1.023-1.debian.tar.xz
@@ -89,7 +89,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Guard
 cp %{_builddir}/Guard-1.023/COPYING %{buildroot}/usr/share/package-licenses/perl-Guard/9a56f3b919dfc8fced3803e165a2e38de62646e5
-cp %{_builddir}/Guard-1.023/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Guard/9b58a31518909aa40c7625c6632ea065158e4db1
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-Guard/9b58a31518909aa40c7625c6632ea065158e4db1
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -114,5 +114,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Guard.pm
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Guard/Guard.so
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/Guard.pm
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/auto/Guard/Guard.so

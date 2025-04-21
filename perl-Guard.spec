@@ -7,7 +7,7 @@
 #
 Name     : perl-Guard
 Version  : 1.023
-Release  : 30
+Release  : 31
 URL      : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-1.023.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libg/libguard-perl/libguard-perl_1.023-1.debian.tar.xz
